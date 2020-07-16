@@ -1,18 +1,19 @@
+const path = require('path')
 const express = require('express')
 const parser = require('body-parser')
 
+const adminRoot = require('./routes/admin')
+const shopRoot = require('./routes/shop')
+const { use } = require('./routes/admin')
+
 const app = express()
 app.use(parser.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/added', (req, res, next) => {
-  console.log(req.body)
-  res.redirect('/')
-})
-app.use('/add', (req, res, next) => {
-  res.send('<form action="/added" method="POST"><input name="add"><button type="submit">ADD</button></form>').status(200)
-})
-app.use('/', (req, res, next) => {
-  res.send('<h1>hello</h1>').status(200)
+app.use(adminRoot)
+app.use(shopRoot)
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
 })
 
 app.listen(3000)
