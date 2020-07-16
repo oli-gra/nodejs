@@ -1,0 +1,16 @@
+extends layouts/main.pug
+
+block content
+  main
+    if products.length > 0
+      each product in products
+        header.card_header
+          h1.prodict__title #{product}
+        .card__image
+          img(src="")
+        .card__content
+          h2.product__price £££
+          p.product_description Super
+          button.btn Add
+    else
+      h1 No products :(
