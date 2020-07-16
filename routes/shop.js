@@ -1,6 +1,4 @@
-const path = require('path')
 const express = require('express')
-const root = require('../helpers/path')
 const adminRoot = require('./admin')
 
 const router = express.Router()
